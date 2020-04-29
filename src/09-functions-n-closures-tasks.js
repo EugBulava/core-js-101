@@ -67,19 +67,20 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom(...koefs) {
-  return function lol(x) {
-    if (!koefs.length) {
-      return 0;
-    }
-    const res = koefs.reduce((acc, koef, index) => (
-      `${acc
-      }${koef}*${x}**${koefs.length - index - 1} ${
-        index === koefs.length - 1 ? '' : '+'
-      } `
-    ), '');
-    return eval(res); // eslint-disable-line no-eval
-  };
+function getPolynom(/*...koefs*/) {
+  // return function lol(x) {
+  //   if (!koefs.length) {
+  //     return 0;
+  //   }
+  //   const res = koefs.reduce((acc, koef, index) => (
+  //     `${acc
+  //     }${koef}*${x}**${koefs.length - index - 1} ${
+  //       index === koefs.length - 1 ? '' : '+'
+  //     } `
+  //   ), '');
+  //   return eval(res); // eslint-disable-line no-eval
+  // };
+  throw new Error('Not implemented');
 }
 
 
