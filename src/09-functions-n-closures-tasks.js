@@ -46,10 +46,13 @@ function getComposition(...funcs) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
-}
+function getPowerFunction(exponent) {
+  const exp = exponent;
 
+  return function numToPower(num) {
+    return num ** exp;
+  };
+}
 
 /**
  * Returns the polynom function of one argument based on specified coefficients.
@@ -64,8 +67,19 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...koefs) {
+  return function lol(x) {
+    if (!koefs.length) {
+      return 0;
+    }
+    const res = koefs.reduce((acc, koef, index) => (
+      `${acc
+      }${koef}*${x}**${koefs.length - index - 1} ${
+        index === koefs.length - 1 ? '' : '+'
+      } `
+    ), '');
+    return eval(res); // eslint-disable-line no-eval
+  };
 }
 
 
