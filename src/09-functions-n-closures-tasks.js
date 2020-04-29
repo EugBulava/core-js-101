@@ -67,7 +67,7 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom(/*...koefs*/) {
+function getPolynom(/* ...koefs */) {
   // return function lol(x) {
   //   if (!koefs.length) {
   //     return 0;
