@@ -23,8 +23,10 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(...funcs) {
+  return function (x) {
+    return funcs.reduceRight((g, f) => f(g), x);
+  };
 }
 
 
