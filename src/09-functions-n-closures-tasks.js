@@ -24,7 +24,7 @@
  *
  */
 function getComposition(...funcs) {
-  return function (x) {
+  return function lol(x) {
     return funcs.reduceRight((g, f) => f(g), x);
   };
 }
