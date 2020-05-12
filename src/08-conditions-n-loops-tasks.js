@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* *************************************************************************************************
  *                                                                                                *
  * Plese read the following tutorial before implementing tasks:                                   *
@@ -191,8 +192,14 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  for (let i = 0; i < str.length; i += 1) {
+    const char = str[i];
+    if (str.indexOf(char) === i && str.indexOf(char, i + 1) === -1) {
+      return char;
+    }
+  }
+  return null;
 }
 
 
@@ -297,8 +304,22 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const card = ccn;
+  const reverseCard = String(card).split('').reverse();
+  const odd = reverseCard.filter((el, index) => index % 2 !== 0);
+  const even = reverseCard.filter((el, index) => index % 2 === 0);
+  even.shift();
+  const res = odd.map((el) => Number(el) + Number(el));
+  const result = res.join('').split('');
+  const result2 = result.map((el) => Number(el));
+  const sum1 = even.reduce((acc, b) => Number(acc) + Number(b));
+  const sum2 = result2.reduce((acc, b) => acc + b);
+  const mainResult = (sum1 + sum2) * 9;
+  if (mainResult % 10 === Number(reverseCard[0])) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -315,8 +336,12 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const res = String(num).split('').reduce((acc, b) => Number(acc) + Number(b));
+  if (res < 9) {
+    return res;
+  }
+  return getDigitalRoot(res);
 }
 
 
@@ -341,8 +366,24 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const stack = [];
+  const a = str.split('');
+  let pop;
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i] === '[' || a[i] === '{' || a[i] === '<' || a[i] === '(') {
+      stack.push(a[i]);
+    } else {
+      pop = stack.pop();
+      if (pop + a[i] !== '[]' && pop + a[i] !== '{}' && pop + a[i] !== '()' && pop + a[i] !== '<>') {
+        return false;
+      }
+    }
+  }
+  if (stack.length === 0) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -366,8 +407,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -383,8 +424,28 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let mainResult = '';
+  const pathesParts = [];
+  let elements = [];
+  let lol;
+  for (let i = 0; i < pathes.length; i += 1) {
+    pathesParts.push(pathes[i].split('/'));
+  }
+  const b = pathesParts.reduce((p, c, i, a) => (a[p].length > c.length ? p : i), 0);
+  for (let j = 0; j < pathesParts[b].length; j += 1) {
+    elements = [];
+    for (let i = 0; i < pathesParts.length; i += 1) {
+      elements.push(pathesParts[i][j]);
+      lol = elements.every((el, _, arr) => el === arr[0]);
+    }
+    if (lol) {
+      mainResult += `${elements[0]}/`;
+    } else {
+      break;
+    }
+  }
+  return mainResult;
 }
 
 
@@ -406,8 +467,21 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const aNumRows = m1.length;
+  const aNumCols = m1[0].length;
+  const bNumCols = m2[0].length;
+  const m = new Array(aNumRows);
+  for (let r = 0; r < aNumRows; ++r) {
+    m[r] = new Array(bNumCols);
+    for (let c = 0; c < bNumCols; ++c) {
+      m[r][c] = 0;
+      for (let i = 0; i < aNumCols; ++i) {
+        m[r][c] += m1[r][i] * m2[i][c];
+      }
+    }
+  }
+  return m;
 }
 
 
@@ -441,8 +515,34 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if ((position[0][0] === 'X' && position[0][1] === 'X' && position[0][2] === 'X')
+  || (position[1][0] === 'X' && position[1][1] === 'X' && position[1][2] === 'X')
+  || (position[2][0] === 'X' && position[2][1] === 'X' && position[2][2] === 'X')
+
+  || (position[0][0] === 'X' && position[1][0] === 'X' && position[2][0] === 'X')
+  || (position[0][1] === 'X' && position[1][1] === 'X' && position[2][1] === 'X')
+  || (position[0][2] === 'X' && position[1][2] === 'X' && position[2][2] === 'X')
+
+  || (position[0][0] === 'X' && position[1][1] === 'X' && position[2][2] === 'X')
+  || (position[0][2] === 'X' && position[1][1] === 'X' && position[2][0] === 'X')
+  ) {
+    return 'X';
+  } if (
+    (position[0][0] === '0' && position[0][1] === '0' && position[0][2] === '0')
+    || (position[1][0] === '0' && position[1][1] === '0' && position[1][2] === '0')
+    || (position[2][0] === '0' && position[2][1] === '0' && position[2][2] === '0')
+
+    || (position[0][0] === '0' && position[1][0] === '0' && position[2][0] === '0')
+    || (position[0][1] === '0' && position[1][1] === '0' && position[2][1] === '0')
+    || (position[0][2] === '0' && position[1][2] === '0' && position[2][2] === '0')
+
+    || (position[0][0] === '0' && position[1][1] === '0' && position[2][2] === '0')
+    || (position[0][2] === '0' && position[1][1] === '0' && position[2][0] === '0')
+  ) {
+    return '0';
+  }
+  return undefined;
 }
 
 
