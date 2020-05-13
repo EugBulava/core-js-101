@@ -99,7 +99,7 @@ function getPolynom(...koefs) {
  */
 function memoize(func) {
   const fn = func();
-  return function () {
+  return function lol() {
     return fn;
   };
 }
