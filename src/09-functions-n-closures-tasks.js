@@ -67,20 +67,19 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom(/* ...koefs */) {
-  // return function lol(x) {
-  //   if (!koefs.length) {
-  //     return 0;
-  //   }
-  //   const res = koefs.reduce((acc, koef, index) => (
-  //     `${acc
-  //     }${koef}*${x}**${koefs.length - index - 1} ${
-  //       index === koefs.length - 1 ? '' : '+'
-  //     } `
-  //   ), '');
-  //   return eval(res); // eslint-disable-line no-eval
-  // };
-  throw new Error('Not implemented');
+function getPolynom(...koefs) {
+  return function lol(x) {
+    if (!koefs.length) {
+      return 0;
+    }
+    const res = koefs.reduce((acc, koef, index) => (
+      `${acc
+      }${koef}*${x}**${koefs.length - index - 1} ${
+        index === koefs.length - 1 ? '' : '+'
+      } `
+    ), '');
+    return eval(res); // eslint-disable-line no-eval
+  };
 }
 
 
@@ -98,8 +97,11 @@ function getPolynom(/* ...koefs */) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const fn = func();
+  return function () {
+    return fn;
+  };
 }
 
 
